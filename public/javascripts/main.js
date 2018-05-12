@@ -4,6 +4,8 @@ $(document).ready(function () {
     var context = can.getContext('2d');
     var detectUrl = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceAttributes=emotion"
     var subscriptionKey = "2def81deb31f413cbb2255fb1af7ec9d";
+    var timeHolder = document.getElementById("time");
+    console.log(timeHolder);
     // bad mix of vanilla and jquery. ooops
 
 
@@ -64,16 +66,22 @@ $(document).ready(function () {
 
           })
       }
-    
+    function showItems(){
+        showImage();
+        showTime();
+    }
 
     function showImage() {
         console.log("show image")
         context.drawImage(v, 0, 0, can.width, can.height);
     }
-
-    setInterval(showImage, 1);
+    function showTime(){
+        var currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+        $(timeHolder).text(currentTime);
+    }
+    setInterval(showItems, 1);
     //another interval to check the image
-    setInterval(checkImage,10000);
+    setInterval(checkItems,10000);
     
 
     function detectFaces(photo) {
