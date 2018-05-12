@@ -15,7 +15,7 @@ $(document).ready(function () {
     function checkImage(){
         console.log("CheckImage called");
         can.toBlob(findOut);
-
+        console.log("look at me")
     }
 
 
