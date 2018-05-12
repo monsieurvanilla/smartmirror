@@ -6,6 +6,7 @@ $(document).ready(function () {
     var subscriptionKey = "2def81deb31f413cbb2255fb1af7ec9d";
     var timeHolder = document.getElementById("time");
     console.log(timeHolder);
+    var weather = document.getElementById("weather");
     // bad mix of vanilla and jquery. ooops
 
 
@@ -76,12 +77,12 @@ $(document).ready(function () {
         context.drawImage(v, 0, 0, can.width, can.height);
     }
     function showTime(){
-        var currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+        var currentTime = moment().format('LT');
         $(timeHolder).text(currentTime);
     }
     setInterval(showItems, 1);
     //another interval to check the image
-    setInterval(checkItems,10000);
+    setInterval(checkImage,10000);
     
 
     function detectFaces(photo) {
@@ -102,7 +103,17 @@ $(document).ready(function () {
         console.log(subscriptionKey)
         return fetch(detectUrl, options);
       }
-
+function getWeather(){
+    $.get( "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&appid=52023b5a67ea9a8811e25266368056b5", function( data ) {
+       // $( ".result" ).html( data );
+       console.log(data)
+       console.log(data.weather)
+       $(weather).text(data.weather[0].description);
+       // alert( "Load was performed." );
+      // http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=52023b5a67ea9a8811e25266368056b5
+      });
+}
+getWeather();
 });
 
 
