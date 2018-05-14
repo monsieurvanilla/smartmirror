@@ -12,34 +12,14 @@ $(document).ready(function () {
     var v = document.getElementById('camera');
     // Context is used to get the drawing context - its how we draw and get data from the canvas!
     var context = can.getContext('2d');
+
     // detectUrl is the API endpoint - its where we want to ping and we are looking to detect emotion. See the 
     // Face API from MSFT for more information
     var detectUrl = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceAttributes=emotion"
     // Listen. We don't really want this on the client side as that is a security issue. We should ideally remove
     // this and then put it only on the local mirror we are using
     var subscriptionKey = "2def81deb31f413cbb2255fb1af7ec9d";
-<<<<<<< HEAD
     // Here we are setting the width and the height of the canvas. We might want to change this. 
-=======
-    var timeHolder = document.getElementById("time");
-    console.log(timeHolder);
-    // bad mix of vanilla and jquery. ooops
-
-
-    $('#sendbutton').click(function(eObject){
-        console.log("on Click yo")
-       //checkImage();
-    })
-
-    function checkImage(){
-        console.log("CheckImage called");
-        can.toBlob(findOut);
-        console.log("look at me")
-    }
-
-
-
->>>>>>> d79b3e3ed5f38cf816ffbc9144ea7cdff0bb5aa3
     can.style.width = window.innerWidth + "px";
     can.style.height = window.innerHeight + "px";
     // Here we are checking to see if we can get User Media 
@@ -88,15 +68,47 @@ $(document).ready(function () {
 
           })
       }
-<<<<<<< HEAD
 
       function processDataFromAPI(response){
 
 
-        console.log(response);
-        
+        console.log("process data from api");
+        console.log(response)
+        var len = response.length;
+        console.log(len)
+    
+        for (var i=0;i<len;i++){
+            var face = response[i];
+            var faceAttributeObject = face['faceAttributes'];
+            console.log(faceAttributeObject);
+            var emotionObject =  faceAttributeObject['emotion'];
+            console.log(emotionObject);
+            console.log("emotion");
+            var mainEmotion = getHighestEmotion();
 
+           
+        }
       }
+
+     function getHightestEmotion(emotion){
+        console.log(emotion)
+        var emotionName; 
+        var emotionValue =0;
+        var emotionObject ={};
+        for(var i in emotion){
+            console.log(i);
+            if(emotion[i]>emotionValue){
+                emotionName = i;
+                emotionObject.name  = i;
+                emotionObject.value = emotion[i];
+
+            }
+        }
+
+        return emotionObject;
+     }
+      
+  
 
       function getGeneralScore(){
 
@@ -108,15 +120,7 @@ $(document).ready(function () {
     When that is done, it will call the "findOut" function
     */
     function checkImage(){
-=======
-    function showItems(){
-        showImage();
-        showTime();
-    }
->>>>>>> d79b3e3ed5f38cf816ffbc9144ea7cdff0bb5aa3
-
         can.toBlob(findOut);
-      
     }
 
     /* This will always show the image on the context*/
@@ -124,22 +128,12 @@ $(document).ready(function () {
         console.log("show image")
         context.drawImage(v, 0, 0, can.width, can.height);
     }
-<<<<<<< HEAD
 
     //Call Show Image every 1 ms - so that we are updating that canvas
     setInterval(showImage, 1);
     //Call the api to check every 10 seconds at the moment. 
     // Might need to change! 
     setInterval(checkImage,10000);
-=======
-    function showTime(){
-        var currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
-        $(timeHolder).text(currentTime);
-    }
-    setInterval(showItems, 1);
-    //another interval to check the image
-    setInterval(checkItems,10000);
->>>>>>> d79b3e3ed5f38cf816ffbc9144ea7cdff0bb5aa3
     
     /*
     
@@ -163,7 +157,6 @@ $(document).ready(function () {
       }
 
 });
-
 
 
 
