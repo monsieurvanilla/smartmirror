@@ -19,7 +19,36 @@ $(document).ready(function () {
     // Listen. We don't really want this on the client side as that is a security issue. We should ideally remove
     // this and then put it only on the local mirror we are using
     var subscriptionKey = "2def81deb31f413cbb2255fb1af7ec9d";
-    // Here we are setting the width and the height of the canvas. We might want to change this. 
+    var timeHolder = document.getElementById("time");
+    console.log(timeHolder);
+    var weather = document.getElementById("weather");
+    // bad mix of vanilla and jquery. ooops
+
+
+    var emotionImages ={};
+    emotionImages["anger"]="anger.svg";
+    emotionImages["happiness"]="happiness.svg";
+    emotionImages["sadness"]="sadness.svg";
+    emotionImages["fear"]="fear.svg";
+    emotionImages["contempt"]="contempt.svg";
+    emotionImages["disgust"]="disgust.svg";
+    emotionImages["neutral"]="neutral.svg";
+    emotionImages["surprise"]="surprise.svg";
+
+
+    $('#sendbutton').click(function(eObject){
+        console.log("on Click yo")
+       //checkImage();
+    })
+
+    function checkImage(){
+        console.log("CheckImage called");
+        can.toBlob(findOut);
+        console.log("look at me")
+    }
+
+
+
     can.style.width = window.innerWidth + "px";
     can.style.height = window.innerHeight + "px";
     // Here we are checking to see if we can get User Media 
@@ -83,29 +112,42 @@ $(document).ready(function () {
             console.log(faceAttributeObject);
             var emotionObject =  faceAttributeObject['emotion'];
             console.log(emotionObject);
-            console.log("emotion");
-            var mainEmotion = getHighestEmotion();
-
+            console.log("get the emottion");
+            var mainEmotion = getHighestEmotion(emotionObject);
+            console.log("Main Emotion"+mainEmotion);
+            showEmotion(mainEmotion);
+    
            
         }
       }
 
-     function getHightestEmotion(emotion){
-        console.log(emotion)
-        var emotionName; 
+
+      function showEmotion(mainEmotion){
+      
+        $("#emotions").removeClass();
+        $('#emotions').addClass(mainEmotion);
+        $('#emotions').addClass('emotions');
+
+
+        
+      }
+
+     function getHighestEmotion(emotion){
+         
+        var item = 'stacey';
         var emotionValue =0;
-        var emotionObject ={};
+
         for(var i in emotion){
-            console.log(i);
+           
             if(emotion[i]>emotionValue){
-                emotionName = i;
-                emotionObject.name  = i;
-                emotionObject.value = emotion[i];
+             
+                emotionValue = emotion[i];
+                item = i;
 
             }
         }
 
-        return emotionObject;
+        return item;
      }
       
   
@@ -128,11 +170,17 @@ $(document).ready(function () {
         console.log("show image")
         context.drawImage(v, 0, 0, can.width, can.height);
     }
+    function showTime(){
+        var currentTime = moment().format('LT');
+        $(timeHolder).text(currentTime);
+    }
 
-    //Call Show Image every 1 ms - so that we are updating that canvas
-    setInterval(showImage, 1);
-    //Call the api to check every 10 seconds at the moment. 
-    // Might need to change! 
+    function showItems(){
+     showTime();
+        showImage();
+    }
+    setInterval(showItems, 1);
+    //another interval to check the image
     setInterval(checkImage,10000);
     
     /*
@@ -155,7 +203,17 @@ $(document).ready(function () {
         console.log(subscriptionKey)
         return fetch(detectUrl, options);
       }
-
+function getWeather(){
+    $.get( "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&appid=52023b5a67ea9a8811e25266368056b5", function( data ) {
+       // $( ".result" ).html( data );
+       console.log(data)
+       console.log(data.weather)
+       $(weather).text(data.weather[0].description);
+       // alert( "Load was performed." );
+      // http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=52023b5a67ea9a8811e25266368056b5
+      });
+}
+getWeather();
 });
 
 

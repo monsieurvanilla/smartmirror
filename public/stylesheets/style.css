@@ -1,26 +1,88 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  
+  font: 14px; 
+  font-family: 'Quicksand', sans-serif;
   margin: 0;
   overflow: hidden;
   background-color: #000000;
   color:#ffffff;
 }
 
+#emotions {
+
+  fill:#ffffff;
+}
+
 a {
   color: #00B7FF;
 }
 h2 {
-  font-size: 48px;
-  color: #ff0000;
+  font-size: 30px;
+  color: #ffffff;
+  text-align: right;
 }
 #photoimg{
   display:none;
 }
 #camera{
   display:none;
-} 
-
+}
 .holders{
   display:none;
 }
+
+/*
+CSS for EMOTIONS ITEM 
+*/
+.emotions{
+
+  display: block;
+  text-indent: -9999px;
+ width:75px;
+ height:75px;
+ background-size:75px 75px;
+
+}
+
+
+.surprise{
+  background: url(../images/emotions/surprise.svg);
+}
+.neutral{
+
+  background: url(../images/emotions/neutral.svg);
+}
+
+.happiness{
+  background: url(../images/emotions/happiness.svg);
+  
+}
+.anger{
+
+  background: url(../images/emotions/anger.svg);
+
+}
+
+.sadness{
+
+  background: url(../images/emotions/sadness.svg);
+
+}
+
+.disgust{
+  background: url(../images/emotions/disgust.svg);
+
+}
+
+.fear{
+
+  background: url(../images/emotions/fear.svg);
+
+}
+
+.contempt{
+
+  background: url(../images/emotions/contempt.svg);
+
+}
+
+ 
