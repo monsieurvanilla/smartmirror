@@ -22,6 +22,7 @@ $(document).ready(function () {
     var timeHolder = document.getElementById("time");
     console.log(timeHolder);
     var weather = document.getElementById("weather");
+    var weathericon = document.getElementById("weathericon");
     // bad mix of vanilla and jquery. ooops
 
 
@@ -88,6 +89,9 @@ $(document).ready(function () {
     /* findOut - This function takes photo data and then will call the detectFaces */
     function findOut(photo) {
         console.log("findOut function called");
+        /*Alex - you should write a check here to determine IF there is an image - if someone hasn't accepted the 
+        use of their camera, there will be no image.... hence no width or height. We shouldn't call the api if we 
+        have no data! */
         // detect all faces in photo and try to identify if any of them are willman
         detectFaces(photo)
           .then((response) => response.json())
@@ -176,12 +180,14 @@ $(document).ready(function () {
     }
 
     function showItems(){
-     showTime();
+        showTime();
         showImage();
+        checkImage();
     }
-    setInterval(showItems, 1);
-    //another interval to check the image
-    setInterval(checkImage,10000);
+    setInterval(showItems, 10000);
+  
+    showTime();
+
     
     /*
     
@@ -203,17 +209,51 @@ $(document).ready(function () {
         console.log(subscriptionKey)
         return fetch(detectUrl, options);
       }
+
+      /*
+      Get Weather - Will call teh open weather map and get the weather. We then determine teh class name based on the
+      ID returned. If you want to make this icon big - you do it in style sheets. Treat it like a font - so you would do something like
+      font-size:48px for example. This is how you resize it. 
+      */
 function getWeather(){
     $.get( "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&appid=52023b5a67ea9a8811e25266368056b5", function( data ) {
-       // $( ".result" ).html( data );
+
        console.log(data)
-       console.log(data.weather)
-       $(weather).text(data.weather[0].description);
-       // alert( "Load was performed." );
-      // http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=52023b5a67ea9a8811e25266368056b5
+       console.log(data.weather[0])
+       console.log(data.weather[0].icon)
+       console.log(getClassForWeather(data.weather[0].id,data.weather[0].icon));
+     $(weather).text(data.weather[0].description);
+       var weatherClassName = getClassForWeather(data.weather[0].id,data.weather[0].icon);
+      $(weathericon).removeClass();
+      $(weathericon).addClass("wi");
+      $(weathericon).addClass(weatherClassName);
+
       });
 }
 getWeather();
+
+/*
+This function checks to see what class name to return to use for the icon, shouldn't need to be touched but coudl be improved!
+*/
+function getClassForWeather(id,icon){
+
+    var isNight = (icon.indexOf('n')>-1)?true:false;
+    var isDay = (icon.indexOf('d')>-1)?true:false;
+
+    var className="";
+    if(isNight && !isDay){
+        className = "wi-owm-night-";
+    }else if(isDay && !isNight){
+        className = "wi-owm-day-";
+    }else{
+        className = "wi-own-";
+    }
+    className+=id;
+    console.log(className);
+    return className;
+
+}
+
 });
 
 
