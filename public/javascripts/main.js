@@ -163,8 +163,8 @@ $(document).ready(function () {
 
     function showItems() {
         showTime();
-        //showImage();
-        //checkImage();
+        showImage();
+        checkImage();
     }
     setInterval(showItems, 10000);
 
