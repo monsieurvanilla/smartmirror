@@ -69,54 +69,70 @@ CSS for EMOTIONS ITEM
   text-indent: -9999px;
 
 
- background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     width: 100%;
     height: 100%;
+    margin-left:50%;
   
 
+}
+
+#emotionholder{
+
+  width:400px;
+  height:400px;
+  float:left;
 }
 
 
 .surprise{
   background: url(../images/emotions/surprise.svg);
+  background-repeat:no-repeat;
 }
 .neutral{
 
   background: url(../images/emotions/neutral.svg);
+  background-repeat:no-repeat;
 }
 
 .happiness{
   background: url(../images/emotions/happiness.svg);
+  background-repeat:no-repeat;
   
 }
 .anger{
 
   background: url(../images/emotions/anger.svg);
+  background-repeat:no-repeat;
 
 }
 
 .sadness{
 
   background: url(../images/emotions/sadness.svg);
+  background-repeat:no-repeat;
 
 }
 
 .disgust{
   background: url(../images/emotions/disgust.svg);
+  background-repeat:no-repeat;
 
 }
 
 .fear{
 
   background: url(../images/emotions/fear.svg);
+  background-repeat:no-repeat;
 
 }
 
 .contempt{
 
   background: url(../images/emotions/contempt.svg);
+  background-repeat:no-repeat;
 
 }
 
