@@ -132,16 +132,13 @@ $(document).ready(function () {
         var item = 'neutral';// just defaulting the variable to neutral 
         var emotionValue = 0;
         for (var i in emotion) {
-            if (emotion[i] > emotionValue) {
+            if (emotion[i] >= emotionValue) {
                 emotionValue = emotion[i];
                 item = i;
             }
         }
         return item;
     }
-
-
-
 
     /*
   Function to check the Image - this will get the data image from the Canvas context and then convert it to a blob.
@@ -150,7 +147,6 @@ $(document).ready(function () {
     function checkImage() {
         can.toBlob(findOut);
     }
-
     /* This will always show the image on the context*/
     function showImage() {
         console.log("show image")
@@ -166,8 +162,8 @@ $(document).ready(function () {
         showImage();
         checkImage();
     }
-    setInterval(showItems, 10000);
 
+    setInterval(showItems, 5000);
     showTime();
 
 
@@ -209,7 +205,6 @@ $(document).ready(function () {
             $(weathericon).removeClass();
             $(weathericon).addClass("wi");
             $(weathericon).addClass(weatherClassName);
-
         });
     }
     getWeather();
